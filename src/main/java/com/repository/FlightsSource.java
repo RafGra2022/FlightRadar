@@ -1,22 +1,20 @@
-package com.controller;
+package com.repository;
 
-import com.domain.FlightsListDto;
+import com.domain.FlightsDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.HashMap;
+import java.util.Map;
 
 
 @RequiredArgsConstructor
 @Service
-public class FlightsWebClient {
+public class FlightsSource {
 
-    @Autowired
-    private WebClient webClient;
+    private final WebClient webClient;
 
-    public FlightsListDto webClientInit(HashMap<String,Double> terrain) {
+    public FlightsDto getFlights(Map<String,Double> terrain) {
          return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("all")
@@ -26,7 +24,7 @@ public class FlightsWebClient {
                         .queryParam("lomax", terrain.get("loMax"))
                         .build())
                 .retrieve()
-                .bodyToMono(FlightsListDto.class).block();
+                .bodyToMono(FlightsDto.class).block();
     }
 
 }

@@ -1,14 +1,9 @@
 package com.controller;
 
-import com.domain.FlightProperties;
+import com.domain.FlightsDto;
 import com.service.FlightsFinderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -16,10 +11,12 @@ import java.util.List;
 public class FlightsController {
 
     private final FlightsFinderService flightsFinderService;
+    private final FlightsResponseMapper flightsResponseMapper;
 
-    @GetMapping(path = "/inFlight")
-    public List<FlightProperties> getLiveFlights(@RequestParam int radius, double longitude, double latitude)  {
-        return flightsFinderService.getFlights(radius,longitude,latitude);
+    @GetMapping(path = "/active-flights")
+    public FlightsResponse getActiveFlights(@RequestParam int radius, @RequestParam double longitude, @RequestParam double latitude)  {
+        FlightsDto flights = flightsFinderService.getFlights(radius, longitude, latitude);
+        return flightsResponseMapper.mapToFlightsResponse(flights);
     }
 
 }

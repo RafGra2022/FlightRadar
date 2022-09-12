@@ -1,23 +1,21 @@
 package com.service;
 
-
-import com.controller.FlightsResponseMapper;
-import com.controller.FlightsWebClient;
-import com.domain.FlightProperties;
+import com.domain.FlightsDto;
+import com.repository.FlightsSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.HashMap;
 
 @RequiredArgsConstructor
 @Service
 public class FlightsFinderService {
 
-    private final FlightsWebClient flightsWebClient;
-    private final FlightsResponseMapper flightsResponseMapper;
-    private final GpsCoordinateService gpsCoordinateService;
+    private final FlightsSource flightsSource;
+    private final GpsCoordinateFactory gpsCoordinateFactory;
 
-    public List<FlightProperties> getFlights(int radius, double longitude, double latitude ){
-        return flightsResponseMapper.mapToFlightProperties(flightsWebClient.webClientInit(gpsCoordinateService.terrainAppoint(radius,longitude,latitude)));
+    public FlightsDto getFlights(int radius, double longitude, double latitude ){
+        HashMap<String, Double> gpsCoordinate = gpsCoordinateFactory.createGpsCoordinate(radius, longitude, latitude);
+        return flightsSource.getFlights(gpsCoordinate);
     }
 }

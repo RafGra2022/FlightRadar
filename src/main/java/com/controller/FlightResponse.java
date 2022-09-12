@@ -1,11 +1,11 @@
-package com.domain;
+package com.controller;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class FlightProperties {
+public class FlightResponse {
 
     private String icao24;
     private String callsign;

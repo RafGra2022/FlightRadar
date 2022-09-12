@@ -30,13 +30,13 @@ public class FlightsResponseMapper {
                 flightProperties.setLastContact(flight.get(4));
                 flightProperties.setLongitude(flight.get(5));
                 flightProperties.setLatitude(flight.get(6));
-                flightProperties.setBaroAltitude(flight.get(7));
+                flightProperties.setBaroAltitude(flight.get(7)+"[m]");
                 flightProperties.setOnGround(flight.get(8));
-                flightProperties.setVelocity(flight.get(9));
-                flightProperties.setTrueTrack(flight.get(10));
-                flightProperties.setVerticalRate(flight.get(11));
+                flightProperties.setVelocity(flight.get(9)+"[m/s]");
+                flightProperties.setTrueTrack(flight.get(10)+"[rad]");
+                flightProperties.setVerticalRate(flight.get(11)+"[m/s]");
                 flightProperties.setSensors(flight.get(12));
-                flightProperties.setGeoAltitude(flight.get(13));
+                flightProperties.setGeoAltitude(flight.get(13)+"[m]");
                 flightProperties.setSquawk(flight.get(14));
                 flightProperties.setSpi(flight.get(15));
                 listOfFlights.add(flightProperties);

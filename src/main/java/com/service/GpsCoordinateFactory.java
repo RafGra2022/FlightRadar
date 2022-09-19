@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 public class GpsCoordinateFactory {
 
     public GPSCoordinates createGpsCoordinate(int radius, double longitude, double latitude) {
-        GPSCoordinates gpsCoordinates = new GPSCoordinates(MathCalculation.roundOff(longitude - calculateDistancetoCoordinate(radius)),
+        GPSCoordinates gpsCoordinates = new GPSCoordinates(
+                MathCalculation.roundOff(longitude - calculateDistancetoCoordinate(radius)),
                 MathCalculation.roundOff(longitude + calculateDistancetoCoordinate(radius)),
                 MathCalculation.roundOff(latitude - calculateDistancetoCoordinate(radius)),
                 MathCalculation.roundOff(latitude + calculateDistancetoCoordinate(radius)));

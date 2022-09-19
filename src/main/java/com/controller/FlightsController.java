@@ -22,7 +22,7 @@ public class FlightsController {
     @GetMapping(path = "/custom-flights")
     public FlightsCustomResponse getCustomFlights(@RequestParam int radius, @RequestParam double longitude, @RequestParam double latitude){
         FlightsDto flights = flightsFinderService.getFlights(radius, longitude, latitude);
-        return flightsCustomMapper.mapToFlightsResponse(flights,longitude,latitude);
+        return flightsCustomMapper.mapToCustomResponse(flights,longitude,latitude);
     }
 
 

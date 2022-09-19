@@ -1,12 +1,10 @@
 package com.controller;
 
 import com.domain.FlightsDto;
-import com.service.GpsCoordinateFactory;
 import com.service.GpsDistanceFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ public class FlightsCustomMapper {
 
     private final GpsDistanceFactory gpsDistanceFactory;
 
-    public FlightsCustomResponse mapToFlightsResponse(FlightsDto flightsListDto, double longitude, double latitude) {
+    public FlightsCustomResponse mapToCustomResponse(FlightsDto flightsListDto, double longitude, double latitude) {
 
         List<FlightCustomResponse> listOfFlights = new ArrayList<>();
         if(flightsListDto.getStates()!=null) {
@@ -47,9 +45,4 @@ public class FlightsCustomMapper {
         return new FlightsCustomResponse(listOfFlights);
     }
 
-    private String calculateDistance(double personLon, double personLat, String flightLon, String flightLat) {
-        double a = personLon - Double.parseDouble(flightLon);
-        double b = personLat - Double.parseDouble(flightLat);
-        return String.valueOf(Math.sqrt(Math.pow(a,2)+Math.pow(b,2)));
-    }
 }

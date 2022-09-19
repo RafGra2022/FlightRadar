@@ -21,24 +21,24 @@ public class FlightsResponseMapper {
         if(flightsListDto.getStates()!=null) {
             flightsListDto.getStates().forEach(flight -> {
 
-                FlightResponse flightProperties = new FlightResponse();
-                flightProperties.setIcao24(flight.get(0));
-                flightProperties.setCallsign(flight.get(1));
-                flightProperties.setOriginCountry(flight.get(2));
-                flightProperties.setTimePosition(flight.get(3));
-                flightProperties.setLastContact(flight.get(4));
-                flightProperties.setLongitude(flight.get(5));
-                flightProperties.setLatitude(flight.get(6));
-                flightProperties.setBaroAltitude(flight.get(7)+" m");
-                flightProperties.setOnGround(flight.get(8));
-                flightProperties.setVelocity(flight.get(9)+" m/s");
-                flightProperties.setTrueTrack(flight.get(10)+" rad ");
-                flightProperties.setVerticalRate(flight.get(11)+" m/s");
-                flightProperties.setSensors(flight.get(12));
-                flightProperties.setGeoAltitude(flight.get(13)+" m");
-                flightProperties.setSquawk(flight.get(14));
-                flightProperties.setSpi(flight.get(15));
-                listOfFlights.add(flightProperties);
+                FlightResponse flightResponse = new FlightResponse();
+                flightResponse.setIcao24(flight.get(0));
+                flightResponse.setCallsign(flight.get(1));
+                flightResponse.setOriginCountry(flight.get(2));
+                flightResponse.setTimePosition(flight.get(3));
+                flightResponse.setLastContact(flight.get(4));
+                flightResponse.setLongitude(flight.get(5));
+                flightResponse.setLatitude(flight.get(6));
+                flightResponse.setBaroAltitude(flight.get(7)+" m");
+                flightResponse.setOnGround(flight.get(8));
+                flightResponse.setVelocity(flight.get(9)+" m/s");
+                flightResponse.setTrueTrack(flight.get(10)+" rad ");
+                flightResponse.setVerticalRate(flight.get(11)+" m/s");
+                flightResponse.setSensors(flight.get(12));
+                flightResponse.setGeoAltitude(flight.get(13)+" m");
+                flightResponse.setSquawk(flight.get(14));
+                flightResponse.setSpi(flight.get(15));
+                listOfFlights.add(flightResponse);
 
             });
         }
@@ -48,6 +48,5 @@ public class FlightsResponseMapper {
         }
         return new FlightsResponse(listOfFlights);
     }
-
 
 }

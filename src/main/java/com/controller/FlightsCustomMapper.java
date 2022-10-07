@@ -1,10 +1,16 @@
 package com.controller;
 
 import com.domain.FlightsDto;
+import com.repository.AircraftProperty;
+import com.repository.AircraftType;
+import com.repository.Airline;
+import com.repository.Registration;
 import com.service.GpsDistanceFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +20,11 @@ import java.util.List;
 public class FlightsCustomMapper {
 
     private final GpsDistanceFactory gpsDistanceFactory;
+    private final WebClient hexApi;
+
+    AircraftProperty registration = new Registration();
+    AircraftProperty aircraftType = new AircraftType();
+    AircraftProperty airline = new Airline();
 
     public FlightsCustomResponse mapToCustomResponse(FlightsDto flightsListDto, double longitude, double latitude) {
 
@@ -24,6 +35,9 @@ public class FlightsCustomMapper {
                 FlightCustomResponse flightCustomResponse = new FlightCustomResponse();
                 flightCustomResponse.setDistance(gpsDistanceFactory.calculateDistance(longitude,latitude,flight.get(5),flight.get(6)) + "km");
                 flightCustomResponse.setIcao24(flight.get(0));
+                flightCustomResponse.setAirline(airline.getAircraftProperty(flight.get(0),hexApi));
+                flightCustomResponse.setRegistration(registration.getAircraftProperty(flight.get(0),hexApi));
+                flightCustomResponse.setAircraftType(aircraftType.getAircraftProperty(flight.get(0),hexApi));
                 flightCustomResponse.setCallsign(flight.get(1));
                 flightCustomResponse.setOriginCountry(flight.get(2));
                 flightCustomResponse.setLongitude(flight.get(5));

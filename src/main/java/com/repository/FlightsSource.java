@@ -11,10 +11,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class FlightsSource {
 
-    private final WebClient webClient;
+    private final WebClient openSky;
 
     public FlightsDto getFlights(GPSCoordinates gpsCoordinates) {
-         return webClient.get()
+         return openSky.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("all")
                         .queryParam("lamin", gpsCoordinates.getLaMin())

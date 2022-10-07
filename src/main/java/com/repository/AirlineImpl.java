@@ -2,13 +2,14 @@ package com.repository;
 
 import org.springframework.web.reactive.function.client.WebClient;
 
-public class AircraftType implements AircraftProperty {
+public class AirlineImpl implements AircraftProperty{
+
 
     @Override
-    public String getAircraftProperty(String icao24,WebClient hexApi) {
+    public String getAircraftProperty(String icao24, WebClient hexApi) {
         return hexApi.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("hex-type.php")
+                        .path("hex-airline.php")
                         .queryParam("hex",icao24)
                         .build())
                 .retrieve()

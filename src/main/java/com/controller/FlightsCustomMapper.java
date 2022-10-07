@@ -2,9 +2,9 @@ package com.controller;
 
 import com.domain.FlightsDto;
 import com.repository.AircraftProperty;
-import com.repository.AircraftType;
-import com.repository.Airline;
-import com.repository.Registration;
+import com.repository.AircraftTypeImpl;
+import com.repository.AirlineImpl;
+import com.repository.RegistrationImpl;
 import com.service.GpsDistanceFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +22,9 @@ public class FlightsCustomMapper {
     private final GpsDistanceFactory gpsDistanceFactory;
     private final WebClient hexApi;
 
-    AircraftProperty registration = new Registration();
-    AircraftProperty aircraftType = new AircraftType();
-    AircraftProperty airline = new Airline();
+    AircraftProperty registration = new RegistrationImpl();
+    AircraftProperty aircraftType = new AircraftTypeImpl();
+    AircraftProperty airline = new AirlineImpl();
 
     public FlightsCustomResponse mapToCustomResponse(FlightsDto flightsListDto, double longitude, double latitude) {
 

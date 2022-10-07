@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
-public class Registration implements AircraftProperty {
+public class RegistrationImpl implements AircraftProperty {
 
 
     @Override

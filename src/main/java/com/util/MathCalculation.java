@@ -1,6 +1,6 @@
-package com.service;
+package com.util;
 
-public abstract class MathCalculation {
+public class MathCalculation {
 
     static double roundOff(double number) {
         double scale = (Math.pow(10, 2));

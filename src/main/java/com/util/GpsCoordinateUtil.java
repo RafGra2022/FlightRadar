@@ -1,22 +1,19 @@
-package com.service;
+package com.util;
 
 import com.domain.GPSCoordinates;
-import org.springframework.stereotype.Service;
 
 
-@Service
-public class GpsCoordinateFactory {
+public class GpsCoordinateUtil {
 
-    public GPSCoordinates createGpsCoordinate(int radius, double longitude, double latitude) {
-        GPSCoordinates gpsCoordinates = new GPSCoordinates(
+    public static GPSCoordinates createGpsCoordinate(int radius, double longitude, double latitude) {
+        return new GPSCoordinates(
                 MathCalculation.roundOff(longitude - calculateDistancetoCoordinate(radius)),
                 MathCalculation.roundOff(longitude + calculateDistancetoCoordinate(radius)),
                 MathCalculation.roundOff(latitude - calculateDistancetoCoordinate(radius)),
                 MathCalculation.roundOff(latitude + calculateDistancetoCoordinate(radius)));
-        return gpsCoordinates;
     }
 
-    private double calculateDistancetoCoordinate(int radius) {
+    private static double calculateDistancetoCoordinate(int radius) {
         return (radius * (0.01) / 1.1);
     }
 

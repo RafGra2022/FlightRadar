@@ -16,7 +16,6 @@ public class GPSPositionSource {
                 .uri(uriBuilder -> uriBuilder
                         .path("json")
                         .queryParam("latlng","49.979722, 21.89583")
-                        .queryParam("key","AIzaSyAAWHpulcYtPQ07GQGZx3lZ8afIN9mdsf8")
                         .build())
                 .retrieve()
                 .bodyToMono(PositionDto.class).block();

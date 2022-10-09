@@ -1,15 +1,11 @@
 package com.controller;
 
 import com.domain.FlightsDto;
-import com.repository.AircraftProperty;
-import com.repository.AircraftTypeImpl;
-import com.repository.AirlineImpl;
-import com.repository.RegistrationImpl;
+import com.repository.AircraftAttributeRepository;
 import com.service.GpsDistanceFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +15,14 @@ import java.util.List;
 @Component
 public class FlightsCustomMapper {
 
-    private final GpsDistanceFactory gpsDistanceFactory;
-    private final WebClient hexApi;
 
-    AircraftProperty registration = new RegistrationImpl();
-    AircraftProperty aircraftType = new AircraftTypeImpl();
-    AircraftProperty airline = new AirlineImpl();
+    private final  GpsDistanceFactory gpsDistanceFactory;
+
+
+    private final AircraftAttributeRepository aircraftRegistrationRepository;
+    private final AircraftAttributeRepository aircraftTypeRepository;
+    private final AircraftAttributeRepository airlineNameRepository;
+
 
     public FlightsCustomResponse mapToCustomResponse(FlightsDto flightsListDto, double longitude, double latitude) {
 
@@ -35,9 +33,9 @@ public class FlightsCustomMapper {
                 FlightCustomResponse flightCustomResponse = new FlightCustomResponse();
                 flightCustomResponse.setDistance(gpsDistanceFactory.calculateDistance(longitude,latitude,flight.get(5),flight.get(6)) + "km");
                 flightCustomResponse.setIcao24(flight.get(0));
-                flightCustomResponse.setAirline(airline.getAircraftProperty(flight.get(0),hexApi));
-                flightCustomResponse.setRegistration(registration.getAircraftProperty(flight.get(0),hexApi));
-                flightCustomResponse.setAircraftType(aircraftType.getAircraftProperty(flight.get(0),hexApi));
+                flightCustomResponse.setAirline(airlineNameRepository.getAircraftAttributes(flight.get(0)));
+                flightCustomResponse.setRegistration(aircraftRegistrationRepository.getAircraftAttributes(flight.get(0)));
+                flightCustomResponse.setAircraftType(aircraftTypeRepository.getAircraftAttributes(flight.get(0)));
                 flightCustomResponse.setCallsign(flight.get(1));
                 flightCustomResponse.setOriginCountry(flight.get(2));
                 flightCustomResponse.setLongitude(flight.get(5));

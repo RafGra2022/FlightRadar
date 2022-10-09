@@ -1,11 +1,17 @@
 package com.repository;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-public class AircraftTypeImpl implements AircraftProperty {
+@RequiredArgsConstructor
+@Service
+public class AircraftTypeRepository implements AircraftAttributeRepository {
+
+    private final WebClient hexApi;
 
     @Override
-    public String getAircraftProperty(String icao24,WebClient hexApi) {
+    public String getAircraftAttributes(String icao24) {
         return hexApi.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("hex-type.php")

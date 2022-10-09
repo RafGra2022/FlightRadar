@@ -3,12 +3,12 @@ package com.repository;
 import com.domain.FlightsDto;
 import com.domain.GPSCoordinates;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
 
 @RequiredArgsConstructor
-@Service
+@Repository
 public class FlightsSource {
 
     private final WebClient openSky;

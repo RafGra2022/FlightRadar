@@ -1,21 +1,21 @@
 package com.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @RequiredArgsConstructor
-@Service
+@Repository
 public class AirlineNameRepository implements AircraftAttributeRepository {
 
     private final WebClient hexApi;
 
     @Override
-    public String getAircraftAttributes(String icao24) {
+    public String getAircraftAttributes(String aircraftId) {
         return hexApi.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("hex-airline.php")
-                        .queryParam("hex",icao24)
+                        .queryParam("hex",aircraftId)
                         .build())
                 .retrieve()
                 .bodyToMono(String.class).block();

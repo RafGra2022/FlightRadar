@@ -8,14 +8,15 @@ import lombok.Setter;
 public class FlightCustomResponse {
 
     private String distance;
-    private String icao24;
+//    private String icao24;
     private String airline;
     private String registration;
     private String aircraftType;
     private String callsign;
     private String originCountry;
-    private String longitude;
-    private String latitude;
+    private String position;
+//    private String longitude;
+//    private String latitude;
     private String baroAltitude;
     private String onGround;
     private String velocity;

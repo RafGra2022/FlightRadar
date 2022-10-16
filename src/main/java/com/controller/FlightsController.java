@@ -33,7 +33,7 @@ public class FlightsController {
 
     @GetMapping(path="/test")
     public PositionDto test(){
-        return gpsPositionSource.getPosition();
+        return gpsPositionSource.getPosition(String.valueOf(49.98),String.valueOf(21.76));
     }
 
 

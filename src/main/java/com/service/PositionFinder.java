@@ -5,8 +5,7 @@ import com.repository.GPSPositionSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -14,18 +13,8 @@ public class PositionFinder {
 
     private final GPSPositionSource gpsPositionSource;
 
-    private List<AddressProperties> getPosition(String lat, String lon) {
-        return gpsPositionSource
-                .getPosition(lat, lon)
-                .getResults()
-                .stream()
-                .flatMap(components -> components.getAddress_components().stream())
-                .toList();
-    }
-
     public String getLocality(String lat, String lon) {
         return getPosition(lat, lon)
-                .stream()
                 .filter(properties -> properties.getTypes().contains("locality"))
                 .findFirst()
                 .orElseThrow()
@@ -33,20 +22,24 @@ public class PositionFinder {
     }
 
     public String getVoivodeship(String lat, String lon) {
-        String voivodeship = getPosition(lat, lon).stream().filter(properties -> properties.getTypes().contains("administrative_area_level_1")).findFirst().orElseThrow().getLong_name();
-        List<String> fullNameOfVoivodeship = Arrays.stream(voivodeship.split("\\s")).toList();
-        return fullNameOfVoivodeship
-                .stream()
-                .findFirst()
-                .orElseThrow();
+        String voivodeship = getPosition(lat, lon).filter(properties -> properties.getTypes().contains("administrative_area_level_1")).findFirst().orElseThrow().getLong_name();
+        String[] fullNameOfVoivodeship = voivodeship.split("\\s");
+        return fullNameOfVoivodeship[0];
     }
 
-    public String getCountry(String lat, String lon){
+    public String getCountry(String lat, String lon) {
         return getPosition(lat, lon)
-                .stream()
                 .filter(properties -> properties.getTypes().contains("country"))
                 .findFirst()
                 .orElseThrow()
                 .getShort_name();
+    }
+
+    private Stream<AddressProperties> getPosition(String lat, String lon) {
+        return gpsPositionSource
+                .getPosition(lat, lon)
+                .getResults()
+                .stream()
+                .flatMap(components -> components.getAddress_components().stream());
     }
 }

@@ -24,4 +24,7 @@ public class FlightCustomResponse {
     private String verticalRate;
     private String geoAltitude;
 
+    public boolean isRegistrationPresent(String registration){
+        return this.registration.equals(registration);
+    }
 }
